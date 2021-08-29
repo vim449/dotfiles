@@ -1,0 +1,15 @@
+#!/bin/sh
+
+# This script is called on startup to remap keys.
+
+# Kill all current instances of kmonad
+pgrep kmonad && killall kmonad && sleep 3
+
+# Remap laptop's keyboard regardless
+kmonad /home/dominic/.config/kmonad/config.kbd &
+
+# TODO: loop over all detected keyboards and remap them
+
+
+# Increase key speed via a rate change
+pgrep Xorg && xset r rate 300 50 || kbdrate -r 30 -d 75

@@ -1,0 +1,14 @@
+#!/bin/sh
+
+#This file is run when a DM logs into a graphical session
+remaps &
+setbg &
+unclutter &
+dunst &
+xss-lock i3lock-fancy &
+fcitx5 &
+lxsession &
+nm-applet &
+emacs --daemon &
+mpd && mpd-notification &
+xsetroot -cursor_name left_ptr &

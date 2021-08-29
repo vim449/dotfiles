@@ -1,0 +1,52 @@
+#+TITLE: README
+#+DESCRIPTION: Configuration files for all apps I use
+#+AUTHOR: Dominic Adamson
+
+* Basic Information
+ The programs that currently have a proper configuration file (but may still be buggy) are:
++ NeoViM (with dein plugin manager)
++ Alacritty
++ Blender
++ Dmenu
++ Doom Emacs
++ Zsh (with antigen plugin manager)
++ Picom (jonaburg fork)
++ Mbsync
++ ViFM
++ Xmonad
++ XMobar (needs flag "all-extensions")
++ Starship Prompt
++ X11
++ SXIV
++ Dunst
++ Xkbmap
++ Bat
++ Many Small Shell Scripts
+
+* Install
+** To install the following dependencies are needed:
++ =git= for install and updates
++ =ripgrep= required by all editors
++ =mu= for email indexing in mu4e
++ Nerd fonts including: Hack, Dejavu, Meslo, and JetBrainsMono. (not strictly needed, but will make every app basically unusable)
++ =ueberzug= for image previews in ViFM
++ =xorg-xinit= to use startx scripts
++ =arandr= to manage screen resolution
++ =exa, xdg-open, autojump, and fd= for zsh aliases
++ =blueman, redshift-gtk, network-manager-applet, trayer, xfce4-power-manager= for full xmonad
+
+These should all be inside of standard repositories or AUR
+
+** Clone this repo into a folder at =~/.config/.dotfiles --bare=
+** To install doom emacs:
+1. Clone =https://github.com/hlissner/doom-emacs= with a depth of 1 into =~/.config/emacs=
+2. append =$HOME/.config/emacs/bin= to path (already set up if using zsh)
+3. =doom install= will run initial configuration and install core utils
+4. =doom sync= will install and compile all enabled modules and plugins
+5. =doom doctor= will list all dependencies needed for current plugins. Install all that are needed for you
+** To install NeoViM:
+1. simply enter and exit repeatedly until update and install messages are no longer received
+
+* TODOs:
+- TODO Fix Mu4e in doom
+- TODO add width control for dmenu

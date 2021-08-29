@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+kernel=$(uname -r)
+kernel=${kernel%%-*}
+echo "$kernel"
