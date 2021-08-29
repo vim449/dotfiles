@@ -17,7 +17,6 @@ alias sudo='sudo ' # Let me use my aliases in sudo
 alias su='su -l' # When I switch users, log in
 alias cls='clear'
 alias q='exit'
-alias config='/usr/bin/git --git-dir=$HOME/.config/dotfiles --work-tree=$HOME'
 alias path='echo $PATH | sed "s/:/\n/g" | grep -v antigen'
 
 # Human readable output
