@@ -64,7 +64,7 @@ alias wget="wget -q --show-progress -hsts-file='$XDG_CACHE_HOME/wget-hsts'"
 # Better command replacements
 alias cat="bat"
 alias du="dust"
-alias grep"rg"
+alias grep="rg"
 alias btm="btm --color gruvbox"
 alias top="btm -b"
 alias vim='nvim'
