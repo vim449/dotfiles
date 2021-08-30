@@ -1,3 +1,7 @@
 [submodule "emacs"]
 	path = .config/emacs
 	url = https://github.com/hlissner/doom-emacs
+
+[submodule "xsh"]
+    path = .local/share/xsh
+    url = https://github.com/sgleizes/xsh
