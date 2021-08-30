@@ -9,7 +9,7 @@
 HISTFILE=$HOME/.local/share/shell/history
 set -o noclobber # Apparently this is a better option
 set -o notify    # Tell me about my running jobs
-source $HOME/.nix-profile/etc/profile.d/nix.sh
+test -d  /nix/ && source /etc/profile.d/nix.sh
 
 # Basics
 alias reload='exec "$XSHELL"' # Should be self-explanatory
