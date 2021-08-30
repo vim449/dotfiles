@@ -1,3 +1,4 @@
 # This should take care of most of my XDG bootstrapping needs
 XSH_CONFIG_DIR DEFAULT=@{HOME}/.config/shell
+XSH_DIR DEFAULT=@{HOME}/.local/share/xsh
 ZDOTDIR DEFAULT=@{HOME}/.config/zsh
