@@ -14,13 +14,13 @@ function get_volume {
 }
 
 function is_mute {
-  pactl get-sink-mute 0 | sed -n 's/Mute: //' | grep yes > /dev/null
+  pactl get-sink-mute 0 | sed 's/Mute: //' | sed 's/no//'
 }
 
 function send_notification {
   iconSound="audio-volume-high"
   iconMuted="audio-volume-muted"
-  if is_mute ; then
+  if [ $(is_mute) ] ; then
     dunstify -i $iconMuted -r 2593 -u normal "mute"
   else
     volume=$(get_volume)
