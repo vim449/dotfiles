@@ -613,7 +613,33 @@ irc        ; how to become a neckbeard in 1 easy step!
 (rss +org) ; news about your news
 ;;twitter  ; thankfully you don't use this, right? right?
 #+end_src
-** Package Install
+** CLI Tweaks
+Of the many things that Henrik is working on right now, CLI is the one that receives the most discussion. Once the CLI overhaul is done, much of this will be either obsolute or drastically different. As such, don't rely on much of this code to work.
+#+begin_src emacs-lisp :tangle cli.el :comments none
+;;; cli.el -*- lexical-binding: t; -*-
+(setq! org-confirm-babel-evaluate nil)
+
+(defun doom-shut-up-a (orig-fn &rest args)
+  (quiet! (apply orig-fn args)))
+
+(advice-add 'org-babel-execute-src-block :around #'doom-shut-up-a)
+#+end_src
+** Async Tangling
+Doom adds an =org-mode= hook =+literate-enable-recompile-h=. This is a nice idea, but it’s too blocking for my taste. Since I trust my tangling to be fairly straightforward, I’ll just redefine it to a simpler, async, function.
+#+begin_src emacs-lisp
+(defadvice! +literate-tangle-async-h ()
+  "A very simplified version of `+literate-tangle-h', but async."
+  :override #'+literate-tangle-h
+  (let ((default-directory doom-private-dir))
+    (async-shell-command
+     (format "emacs --batch --eval \"(progn \
+(require 'org) (setq! org-confirm-babel-evaluate nil) \
+(org-babel-tangle-file \\\"%s\\\"))\""
+             +literate-config-file))))
+#+end_src
+* Package Config
+This slightly overlaps with the next section, but this block is mostly for packages which are either very atomic and don't belong in the full language config, or apply to multiple languages. Most things that relate to UI are also here.
+** Loading Instructions
 :PROPERTIES:
 :header-args:emacs-lisp: :tangle "packages.el" :comments no
 :END:
@@ -1028,49 +1054,13 @@ Well, to quote our lord Henrik, even brainfuck is easier to write than VimL, so 
 #+begin_src emacs-lisp
 (package! vimrc-mode)
 #+end_src
-** CLI Tweaks
-Of the many things that Henrik is working on right now, CLI is the one that receives the most discussion. Once the CLI overhaul is done, much of this will be either obsolute or drastically different. As such, don't rely on much of this code to work.
-#+begin_src emacs-lisp :tangle cli.el :comments none
-;;; cli.el -*- lexical-binding: t; -*-
-(setq! org-confirm-babel-evaluate nil)
-
-(defun doom-shut-up-a (orig-fn &rest args)
-  (quiet! (apply orig-fn args)))
-
-(advice-add 'org-babel-execute-src-block :around #'doom-shut-up-a)
-#+end_src
-** Async Tangling
-Doom adds an =org-mode= hook =+literate-enable-recompile-h=. This is a nice idea, but it’s too blocking for my taste. Since I trust my tangling to be fairly straightforward, I’ll just redefine it to a simpler, async, function.
-#+begin_src emacs-lisp
-(defadvice! +literate-tangle-async-h ()
-  "A very simplified version of `+literate-tangle-h', but async."
-  :override #'+literate-tangle-h
-  (let ((default-directory doom-private-dir))
-    (async-shell-command
-     (format "emacs --batch --eval \"(progn \
-(require 'org) (setq! org-confirm-babel-evaluate nil) \
-(org-babel-tangle-file \\\"%s\\\"))\""
-             +literate-config-file))))
-#+end_src
-* Package Config
-This slightly overlaps with the next section, but this block is mostly for packages which are either very atomic and don't belong in the full language config, or apply to multiple languages. Most things that relate to UI are also here.
 ** Abbrev Mode
 Abbreviations are really useful. They are slightly less useful when using =yasnippet=, but that's besides the point. However, =abbrev-mode= assume you want a separate abbrev list for every major mode, and I don't.
 #+begin_src emacs-lisp
-(use-package abbrev
-  :init
-  (setq! abbrev-mode t)
-  ;; a hook funtion that sets the abbrev-table to org-mode-abbrev-table
-  ;; whenever the major mode is a text mode
-  (defun tec/set-text-mode-abbrev-table ()
-    (if (derived-mode-p 'text-mode)
-        (setq! local-abbrev-table org-mode-abbrev-table)))
-  :commands abbrev-mode
-  :hook
-  (abbrev-mode . tec/set-text-mode-abbrev-table)
-  :config
-  (setq! abbrev-file-name (expand-file-name "abbrev.el" doom-private-dir))
-  (setq! save-abbrevs 'silently))
+(add-hook 'doom-first-buffer-hook
+          (defun +abbrev-file-name ()
+                (setq-default abbrev-mode t)
+                (setq! abbrev-file-name (expand-file-name "abbrev.el" doom-private-dir))))
 #+end_src
 ** Calc
 *** Defaults
