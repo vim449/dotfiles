@@ -7,4 +7,5 @@ Media/
 .nix-profile/
 .mozilla/
 .texlive/
-.local/share/
+.local
+!.local/bin/
