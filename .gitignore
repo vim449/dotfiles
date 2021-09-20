@@ -1,0 +1,10 @@
+.cache/
+.steam/
+.zotero/
+Documents/
+Downloads/
+Media/
+.nix-profile/
+.mozilla/
+.texlive/
+.local/share/
