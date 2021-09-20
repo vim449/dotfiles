@@ -1,0 +1,19 @@
+[user]
+	email = adamson.dom@gmail.com
+	name = Dominic Adamson
+[color]
+	ui = true
+[github]
+	user = destroyer449
+[init]
+	defaultBranch = master
+[diff "org"]
+    xfuncname = "^(\\*+ +.*)$"
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
+[include]
+	path = alias
+    path = delta
