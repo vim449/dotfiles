@@ -17,8 +17,6 @@ org/
 
 .config/retroarch/
 .config/nvim/undodir
-.config/mpd/lyrics/
-.config/mpd/playlists/
 .config/libreoffice/
 .config/google-chrome/
 .config/discord/
